@@ -20,7 +20,9 @@ const Board = ()=>{
         canvas.height = window.innerHeight
         
         context.strokeStyle = "white"
-        context.lineWidth=10
+        context.lineWidth=5
+        context.lineCap = "round";
+
 
 
 
@@ -55,7 +57,6 @@ const Board = ()=>{
 
 
         // Mobile 
-
         const Touchstart = (e) => {
             e.preventDefault();
             shouldDraw.current = true
@@ -100,7 +101,7 @@ const Board = ()=>{
 
     return(
         
-        <canvas ref={canvasRef} width="150" height="150"></canvas>
+        <canvas className="canvas" ref={canvasRef} width="150" height="150"></canvas>
     );
 }
 

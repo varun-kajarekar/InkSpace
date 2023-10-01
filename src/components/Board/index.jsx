@@ -27,6 +27,7 @@ const Board = ()=>{
         // For PC
 
         const handleMouseDown = (e) => {
+            
             shouldDraw.current = true
             context.beginPath()
             let x = e.clientX
@@ -54,8 +55,9 @@ const Board = ()=>{
 
 
         // Mobile 
-        
+
         const Touchstart = (e) => {
+            e.preventDefault();
             shouldDraw.current = true
             context.beginPath()
             context.moveTo(e.touches[0].clientX,e.touches[0].clientY)
@@ -63,12 +65,14 @@ const Board = ()=>{
 
         const Touchmove = (e) => {
             if (!shouldDraw.current) return
+            e.preventDefault();
 
             context.lineTo(e.touches[0].clientX,e.touches[0].clientY)
             context.stroke()
         }
 
         const Touchend = (e) => {
+            e.preventDefault();
             shouldDraw.current = false
 
         }

@@ -1,4 +1,4 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch }  from 'react-redux';
 import { menuItemClick } from '../../slice/menuSlice';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencil, faRotateLeft, faRotateRight, faFileArrowDown, faEraser, faDownLeftAndUpRightToCenter } from '@fortawesome/free-solid-svg-icons';
@@ -19,7 +19,6 @@ const Menu = () => {
 
     
     return (
-
         <div className="absolute left-1/2 bottom-3 translate-x-[-50%] flex justify-center items-center h-12 w-auto  bg-white rounded-md">
             <div className={`mx-3 px-2 py-1 rounded-md hover:bg-slate-400/90 cursor-pointer ${activeMenuItem ==='pencil'?'bg-slate-400/90':'bg-slate-100'}`}  onClick={()=>handleMenuClick('pencil')} >
                 <FontAwesomeIcon icon={faPencil} size="lg" />

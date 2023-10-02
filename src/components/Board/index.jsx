@@ -1,13 +1,27 @@
 import { useEffect, useRef } from "react";
+import { useSelector } from 'react-redux';
+
 
 const Board = ()=>{
 
     const canvasRef = useRef(null);
     const shouldDraw = useRef(false);
-    
+
+    const activeMenuItem = useSelector((state) => state.menu.activeMenuItem)
+    const {color,size} = useSelector((state) => state.toolbox[activeMenuItem])
+
+    useEffect(()=>{
+        if(!canvasRef.current) return
+
+        const canvas = canvasRef.current;
+        const context = canvas.getContext('2d');        
+        context.strokeStyle = color
+        context.lineWidth=size
+    },[color,size])
 
 
 
+  
     useEffect(()=>{
         if(!canvasRef.current) return
 
@@ -18,10 +32,10 @@ const Board = ()=>{
         
         canvas.width = window.innerWidth
         canvas.height = window.innerHeight
-        
-        context.strokeStyle = "white"
-        context.lineWidth=5
+        context.strokeStyle = color
+        context.lineWidth=size
         context.lineCap = "round";
+        
 
 
 

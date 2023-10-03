@@ -1,5 +1,7 @@
 import { useEffect, useRef } from "react";
-import { useSelector } from 'react-redux';
+import { useSelector ,useDispatch } from 'react-redux';
+import { actionItemClick } from '../../slice/menuSlice';
+
 
 
 const Board = ()=>{
@@ -7,9 +9,38 @@ const Board = ()=>{
     const canvasRef = useRef(null);
     const shouldDraw = useRef(false);
 
+
+
+    const dispatch = useDispatch()
+
     const activeMenuItem = useSelector((state) => state.menu.activeMenuItem)
+    const actionMenuItem = useSelector((state) => state.menu.actionMenuItem)
     const {color,size} = useSelector((state) => state.toolbox[activeMenuItem])
 
+
+    useEffect(()=>{
+        if(!canvasRef.current) return
+
+        const canvas = canvasRef.current;
+
+
+        // To download the img
+        if(actionMenuItem === 'download'){
+            const URL = canvas.toDataURL();
+            const img = document.createElement('a')
+            img.href = URL;
+            img.download = 'InkSpace.jpg'
+            img.click()
+        }
+
+
+        dispatch(actionItemClick(null))
+
+    },[actionMenuItem]);
+
+
+
+    // Change color and size of brush or eraser
     useEffect(()=>{
         if(!canvasRef.current) return
 
@@ -22,24 +53,25 @@ const Board = ()=>{
 
 
   
+
+
+    // For Drawing Logic
     useEffect(()=>{
         if(!canvasRef.current) return
 
         const canvas = canvasRef.current;
         const context = canvas.getContext('2d');
-
-        
         
         canvas.width = window.innerWidth
         canvas.height = window.innerHeight
         context.strokeStyle = color
         context.lineWidth=size
         context.lineCap = "round";
+
+
+        context.fillStyle = '#17191C';
+        context.fillRect(0,0,window.innerWidth,window.innerHeight);
         
-
-
-
-
         // For PC
 
         const handleMouseDown = (e) => {

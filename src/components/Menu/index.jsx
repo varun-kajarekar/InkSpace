@@ -20,7 +20,7 @@ const Menu = () => {
         dispatch(actionItemClick(itemName))
     }
     
-    return (
+    return (  
         <div className="absolute left-1/2 bottom-3 translate-x-[-50%] flex justify-center items-center h-12 w-auto  bg-white rounded-md">
             <div className={`mx-3 px-2 py-1 rounded-md hover:bg-slate-400/90 cursor-pointer ${activeMenuItem ==='pencil'?'bg-slate-400/90':'bg-slate-100'}`}  onClick={()=>handleMenuClick('pencil')} >
                 <FontAwesomeIcon icon={faPencil} size="lg" />
@@ -31,10 +31,10 @@ const Menu = () => {
             <div className="mx-3 bg-slate-100 px-2 py-1 rounded-md hover:bg-slate-400/90 cursor-pointer" onClick={()=>handleActionClick('download')}>
                 <FontAwesomeIcon icon={faFileArrowDown} size="lg" />
             </div>
-            <div className="mx-3 bg-slate-100 px-2 py-1 rounded-md hover:bg-slate-400/90 cursor-pointer">
+            <div className="mx-3 bg-slate-100 px-2 py-1 rounded-md hover:bg-slate-400/90 cursor-pointer" onClick={()=>handleActionClick('undo')}>
                 <FontAwesomeIcon icon={faRotateLeft} size="lg" />
             </div>
-            <div className="mx-3 bg-slate-100 px-2 py-1 rounded-md hover:bg-slate-400/90 cursor-pointer">
+            <div className="mx-3 bg-slate-100 px-2 py-1 rounded-md hover:bg-slate-400/90 cursor-pointer" onClick={()=>handleActionClick('redo')}>
                 <FontAwesomeIcon icon={faRotateRight} size="lg" />
             </div>
             {/* <div className={`mx-3 px-2 py-1 rounded-md hover:bg-slate-400/90 cursor-pointer ${activeMenuItem ==='hide'?'bg-slate-400/90':'bg-slate-100'}`} onClick={()=>handleMenuClick('hide')}>

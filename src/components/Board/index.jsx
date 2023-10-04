@@ -9,6 +9,9 @@ const Board = ()=>{
     const canvasRef = useRef(null);
     const shouldDraw = useRef(false);
 
+    const DrawHistory = useRef([]);
+    const DrawHistoryPointer = useRef(0);
+
 
 
     const dispatch = useDispatch()
@@ -22,18 +25,25 @@ const Board = ()=>{
         if(!canvasRef.current) return
 
         const canvas = canvasRef.current;
+        const context = canvas.getContext('2d');        
 
 
-        // To download the img
+        //DOWNLOAD , UNDO and REDO opertion
         if(actionMenuItem === 'download'){
             const URL = canvas.toDataURL();
             const img = document.createElement('a')
             img.href = URL;
             img.download = 'InkSpace.jpg'
             img.click()
+        }else if(actionMenuItem === 'undo'){
+            if(DrawHistoryPointer.current>0) DrawHistoryPointer.current-=1
+            const imgData = DrawHistory.current[DrawHistoryPointer.current]
+            context.putImageData(imgData, 0, 0)
+        }else if(actionMenuItem == 'redo'){
+            if(DrawHistoryPointer.current<DrawHistory.current.length-1) DrawHistoryPointer.current+=1
+            const imgData = DrawHistory.current[DrawHistoryPointer.current]
+            context.putImageData(imgData, 0, 0)
         }
-
-
         dispatch(actionItemClick(null))
 
     },[actionMenuItem]);
@@ -94,6 +104,10 @@ const Board = ()=>{
         const handleMouseUp = (e) => {
             shouldDraw.current = false
 
+            // To store the imgdata
+            const imgData = context.getImageData(0,0,canvas.width,canvas.height)
+            DrawHistory.current.push(imgData)
+            DrawHistoryPointer.current = DrawHistory.current.length - 1;          
         }
         canvas.addEventListener('mousedown', handleMouseDown)
         canvas.addEventListener('mousemove', handleMouseMove)
